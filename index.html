@@ -633,7 +633,8 @@ document.querySelectorAll('[data-gallery]').forEach(gallery => {
   }, true);
   window.addEventListener('resize', scheduleUpdate);
   window.addEventListener('hashchange', scheduleUpdate);
-  requestAnimationFrame(() => { track.scrollLeft = Math.floor(items.length / 2) * slides[0].offsetWidth; update(); });
+  const initialIndex = gallery.dataset.gallery === 'honors' ? items.findIndex(item => item.src.endsWith('/scholarship-2024.jpg')) : Math.floor(items.length / 2);
+  requestAnimationFrame(() => { track.scrollLeft = Math.max(0, initialIndex) * slides[0].offsetWidth; update(); });
 });
 // Content and detail navigation use native HTML/CSS; JS adds copy feedback and route titles.
 const copyButton = document.getElementById('copy-email');
